@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,7 +15,7 @@ const DigitalIDLogin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await axios.post('http://localhost:5000/api/safety/send-otp', { phone });
+            const res = await api.post('/safety/send-otp', { phone });
 
             if (res.data.mockOtp) {
                 toast.success('📱 Dev Mode: OTP is ' + res.data.mockOtp, {
@@ -39,7 +39,7 @@ const DigitalIDLogin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await axios.post('http://localhost:5000/api/safety/verify-otp', { phone, otp });
+            const res = await api.post('/safety/verify-otp', { phone, otp });
             toast.success('Login Successful!');
             localStorage.setItem('digital_id_user', JSON.stringify(res.data.tourist));
             navigate('/digital-id-dashboard');

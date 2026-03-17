@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+let currentBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Fix: Automatically append /api if the user provided the base domain without it
+if (import.meta.env.VITE_API_URL && !import.meta.env.VITE_API_URL.endsWith('/api')) {
+    currentBaseURL = `${import.meta.env.VITE_API_URL}/api`;
+}
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+    baseURL: currentBaseURL,
 });
 
 // Places
