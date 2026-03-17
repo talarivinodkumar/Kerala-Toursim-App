@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const db = require('../config/db');
 const { sendSMS } = require('../utils/fast2smsHelper');
+const sendEmail = require('../utils/sendEmail');
 
 // --- Haversine Distance (meters) ---
 const getDistance = (lat1, lon1, lat2, lon2) => {
@@ -710,10 +711,40 @@ exports.sendOTP = async (req, res) => {
 
         await db.query('UPDATE tourists SET otp = ?, otp_expiry = ? WHERE id = ?', [otp, otpExpiry, touristId]);
 
-        // Simulating Email Send (We return the mock OTP in DEV mode automatically)
-        console.log(`\n📧 EMAIL MOCK: OTP for ${email} is ${otp}\n`);
-        
-        res.json({ message: 'OTP sent via Email!', mockOtp: otp });
+        // Attempt Real Email Dispatch
+        try {
+            const htmlMessage = `
+                <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 10px;">
+                    <h2 style="color: #0ea5e9; text-align: center;">Keralam Tourist Digital ID</h2>
+                    <p style="font-size: 16px;">Hello,</p>
+                    <p style="font-size: 16px;">Your One-Time Password (OTP) to securely access your Digital Tourist ID is:</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <span style="font-size: 32px; font-weight: bold; background: #f0fdf4; padding: 15px 30px; letter-spacing: 5px; color: #166534; border-radius: 8px;">${otp}</span>
+                    </div>
+                    <p style="font-size: 14px; color: #666;">This code is valid for <strong>10 minutes</strong>. Please do not share this code with anyone.</p>
+                    <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+                    <p style="font-size: 12px; color: #999; text-align: center;">If you did not request this OTP, please ignore this email.<br>&copy; ${new Date().getFullYear()} Kerala Tourism Safety Network</p>
+                </div>
+            `;
+
+            await sendEmail({
+                email: email,
+                subject: 'Your Tourist Digital ID OTP',
+                message: `Your Tourist Digital ID OTP is ${otp}. Valid for 10 minutes.`,
+                html: htmlMessage
+            });
+
+            res.json({ message: 'OTP successfully sent to your email!' });
+            
+        } catch (emailError) {
+            console.error('\n❌ SMTP Email Error:', emailError.message);
+            // Fallback for development if SMTP is invalid
+            console.log(`\n📧 EMAIL MOCK FALLBACK: OTP for ${email} is ${otp}\n`);
+            res.json({ 
+                message: 'SMTP Error: Falling back to mock email (Check Console)', 
+                mockOtp: otp // Note: Consider removing mockOtp from prod builds
+            });
+        }
 
     } catch (error) {
         console.error('Send OTP error:', error);
