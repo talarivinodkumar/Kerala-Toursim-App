@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import api from '../services/api';
 import { ShieldAlert, Map, Bell, Phone, History, Flag } from 'lucide-react';
 import TouristMap from '../components/TouristMap';
 
@@ -29,7 +29,7 @@ const DigitalIDDashboard = () => {
 
     const fetchIncidents = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/safety/incident');
+            const res = await api.get('/safety/incident');
             // Filter only pending/active incidents if desired, or all for dashboard.
             setIncidents(res.data);
         } catch (e) { console.error('Error fetching incidents'); }
@@ -37,7 +37,7 @@ const DigitalIDDashboard = () => {
 
     const fetchSOSHistory = async (id) => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/safety/sos-history/${id}`);
+            const res = await api.get(`/safety/sos-history/${id}`);
             setSosHistory(res.data);
         } catch (e) { console.error('Error fetching sos history'); }
     };
@@ -45,7 +45,7 @@ const DigitalIDDashboard = () => {
     const handleReportIncident = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/safety/incident', {
+            await api.post('/safety/incident', {
                 tourist_id: tourist.id,
                 description: newIncident,
                 lat: localStorage.getItem('last_lat') || 10.1416, // using default or stored
@@ -62,7 +62,7 @@ const DigitalIDDashboard = () => {
     const triggerSOS = async () => {
         if (window.confirm('Are you sure you want to trigger SOS? This will alert Rescue Teams and Emergency Contacts immediately!')) {
             try {
-                await axios.post('http://localhost:5000/api/safety/sos', {
+                await api.post('/safety/sos', {
                     tourist_id: tourist.id,
                     lat: tourist.current_lat || 10.1416,
                     lng: tourist.current_lng || 76.1783

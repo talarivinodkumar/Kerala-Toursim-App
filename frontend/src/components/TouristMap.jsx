@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Circle, Popup, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import axios from 'axios';
+import api from '../services/api';
 import { toast } from 'react-toastify';
 
 // Fix icon paths for webpack/vite
@@ -57,7 +57,7 @@ const TouristMap = ({ tourist, onZoneUpdate }) => {
 
     const checkBeaches = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/safety/beaches');
+            const res = await api.get('/safety/beaches');
             setBeaches(res.data);
         } catch (error) {
             console.error(error);
@@ -89,7 +89,7 @@ const TouristMap = ({ tourist, onZoneUpdate }) => {
                 try {
                     // NEW: Full Geo-Fence & Risk Assessment Flow
                     // "Tourist opens app -> GPS -> Beach -> Geo-Fence -> Risk -> Alert"
-                    const autoTrackRes = await axios.post('http://localhost:5000/api/safety/auto-track', {
+                    const autoTrackRes = await api.post('/safety/auto-track', {
                         tourist_id: tourist.id,
                         lat: newLat,
                         lng: newLng,
