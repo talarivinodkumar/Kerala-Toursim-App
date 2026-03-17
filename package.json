@@ -1,0 +1,14 @@
+{
+    "name": "cherai-tourism-project",
+    "version": "1.0.0",
+    "description": "Full Stack Cherai Tourism Romantic Surprise Website",
+    "scripts": {
+        "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+        "backend": "cd backend && npm run dev",
+        "frontend": "cd frontend && npm run dev",
+        "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}

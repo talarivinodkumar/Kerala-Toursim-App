@@ -1,0 +1,6 @@
+Alert ID 20: Name=Siddharth Reddy, Beach=Cherai Main Beach, Lat=10.14300000
+Alert ID 21: Name=Diya Shenoy, Beach=Varkala Beach, Lat=8.73100000
+Alert ID 22: Name=Vihaan Pillai, Beach=Kovalam Beach, Lat=8.40100000
+Alert ID 23: Name=Rohan Nambiar, Beach=Alappuzha Beach, Lat=9.49100000
+Alert ID 24: Name=Kavya Nair, Beach=Kozhikode Beach, Lat=11.25800000
+Alert ID 25: Name=Vihaan Pillai, Beach=Muzhappilangad Drive-in Beach, Lat=11.79000000
