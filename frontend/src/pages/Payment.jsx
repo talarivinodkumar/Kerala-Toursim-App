@@ -64,7 +64,7 @@ const Payment = () => {
                     <div className="w-40 h-40 bg-green-50 rounded-[3rem] flex items-center justify-center mx-auto mb-12 shadow-2xl border-4 border-white">
                         <CheckCircle className="w-24 h-24 text-green-500" strokeWidth={3} />
                     </div>
-                    <h1 className="text-6xl lg:text-8xl font-black text-blue-950 mb-6 tracking-tighter uppercase">
+                    <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black text-blue-950 mb-6 tracking-tighter uppercase">
                         Booking <br /> <span className="text-green-500">Successful!</span>
                     </h1>
                     <p className="text-xl text-gray-500 font-medium max-w-lg mx-auto mb-16 leading-relaxed">
@@ -93,7 +93,7 @@ const Payment = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white py-24 px-6 sm:px-12">
+        <div className="min-h-screen bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-12">
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-16">
                     <motion.div
@@ -103,7 +103,7 @@ const Payment = () => {
                     >
                         Secure Checkout Portal
                     </motion.div>
-                    <h1 className="text-5xl lg:text-7xl font-black text-blue-950 mb-4 tracking-tighter uppercase">
+                    <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-blue-950 mb-4 tracking-tighter uppercase">
                         Confirm <span className="text-blue-600">Payment</span>
                     </h1>
                     <p className="text-gray-500 font-medium text-lg leading-relaxed">
@@ -113,7 +113,7 @@ const Payment = () => {
 
                 <div className="grid lg:grid-cols-2 gap-12 items-start">
                     {/* Booking Summary */}
-                    <div className="bg-gray-50 p-10 rounded-[3.5rem] border border-gray-100 shadow-sm">
+                    <div className="bg-gray-50 p-6 sm:p-10 rounded-2xl sm:rounded-[3.5rem] border border-gray-100 shadow-sm">
                         <h3 className="text-2xl font-black text-blue-950 mb-8 border-b border-gray-200 pb-4">Trip Summary</h3>
                         <div className="space-y-6">
                             <div className="flex justify-between">
@@ -137,13 +137,13 @@ const Payment = () => {
                             <div className="h-px bg-gray-200 my-8"></div>
                             <div className="flex justify-between items-end">
                                 <span className="text-blue-950 font-black text-xs uppercase tracking-[0.3em]">Payable Amount</span>
-                                <span className="text-6xl font-black text-blue-600 tracking-tighter">₹{bookingDetails.totalPrice}</span>
+                                <span className="text-4xl sm:text-6xl font-black text-blue-600 tracking-tighter">₹{bookingDetails.totalPrice}</span>
                             </div>
                         </div>
                     </div>
 
                     {/* QR Code & UPI Details */}
-                    <div className="bg-blue-950 p-10 rounded-[3.5rem] text-white shadow-3xl relative overflow-hidden group">
+                    <div className="bg-blue-950 p-6 sm:p-10 rounded-2xl sm:rounded-[3.5rem] text-white shadow-3xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 w-48 h-48 bg-blue-600/30 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-blue-600/50 transition-all duration-700"></div>
 
                         <div className="relative z-10 text-center">

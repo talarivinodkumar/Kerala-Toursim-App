@@ -48,13 +48,13 @@ const Beaches = () => {
     return (
         <div className="bg-slate-50 min-h-screen pb-20">
             {/* Header */}
-            <div className="bg-[#0f172a] text-white pt-20 pb-20 px-6 rounded-b-[3rem] shadow-2xl relative overflow-hidden">
+            <div className="bg-[#0f172a] text-white pt-16 sm:pt-20 pb-16 sm:pb-20 px-4 sm:px-6 rounded-b-2xl sm:rounded-b-[3rem] shadow-2xl relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.1)_0%,transparent_50%)] pointer-events-none" />
                 <div className="max-w-7xl mx-auto relative z-10 text-center">
                     <span className="bg-white/10 text-emerald-400 font-bold px-4 py-2 rounded-full border border-white/20 text-xs tracking-widest uppercase mb-4 inline-block">
                         Kerala Smart Tourism
                     </span>
-                    <h1 className="text-5xl lg:text-7xl font-black mb-6 tracking-tight">
+                    <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black mb-6 tracking-tight">
                         Kerala <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Beaches</span>
                     </h1>
                     <p className="text-xl text-slate-400 max-w-2xl mx-auto font-medium">
@@ -64,7 +64,7 @@ const Beaches = () => {
             </div>
 
             {/* Content List */}
-            <div className="max-w-7xl mx-auto px-6 mt-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                     {beaches.map((beach, index) => {
                         const matchName = Object.keys(beachConfig).find(b => beach.beach_name.includes(b));
@@ -103,7 +103,7 @@ const Beaches = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="p-8 md:w-3/5 flex flex-col justify-center">
+                                <div className="p-5 sm:p-8 md:w-3/5 flex flex-col justify-center">
                                     <h3 className="text-2xl font-black text-slate-900 mb-2">{beach.beach_name}</h3>
                                     <p className="text-slate-500 text-sm font-medium mb-6 leading-relaxed">
                                         {beach.description || "A pristine coastline offering the perfect setting for a quiet holiday."}

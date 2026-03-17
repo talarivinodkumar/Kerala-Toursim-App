@@ -75,10 +75,14 @@ const KeralaStateDashboard = () => {
         .beach-row{transition:all .2s}.beach-row:hover{background:rgba(255,255,255,0.05)!important}
         .scroll-area::-webkit-scrollbar{width:4px}.scroll-area::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}
         .leaflet-container{background:#0a0e1a!important}
+        @media(min-width:768px){
+          .stat-grid{grid-template-columns:repeat(4,1fr)!important;gap:16px!important}
+          .map-panel-grid{grid-template-columns:1fr 400px!important}
+        }
       `}</style>
 
             {/* Header */}
-            <header style={{ padding: '20px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+            <header style={{ padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.06)', flexWrap: 'wrap', gap: 12 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                     <div style={{ width: 44, height: 44, background: 'linear-gradient(135deg,#3b82f6,#8b5cf6)', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(59,130,246,0.3)' }}>
                         <Shield size={22} color="white" />
@@ -101,9 +105,10 @@ const KeralaStateDashboard = () => {
                 </div>
             </header>
 
-            <div style={{ padding: '24px 32px', display: 'grid', gap: 24 }}>
+            <div style={{ padding: '16px', display: 'grid', gap: 20 }}>
                 {/* Stat Cards */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 16 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12 }}
+                     className="stat-grid">
                     {statCards.map((s, i) => (
                         <div key={i} className="stat-card glass" style={{ padding: 24, borderRadius: 20, animation: `slideUp ${0.3 + i * 0.1}s ease` }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
@@ -119,7 +124,8 @@ const KeralaStateDashboard = () => {
                 </div>
 
                 {/* Map + Panels */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: 20 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 20 }}
+                     className="map-panel-grid">
                     {/* Kerala Map */}
                     <div className="glass" style={{ borderRadius: 24, overflow: 'hidden', position: 'relative' }}>
                         <div style={{ position: 'absolute', top: 16, left: 16, zIndex: 1000, display: 'flex', gap: 8 }}>
@@ -138,7 +144,7 @@ const KeralaStateDashboard = () => {
                         </div>
                         <MapContainer center={[10.35, 76.25]} zoom={7} minZoom={7}
                             maxBounds={[[7.5, 74], [13.5, 78]]} maxBoundsViscosity={1}
-                            style={{ height: 520, width: '100%', zIndex: 1 }} attributionControl={false}>
+                            style={{ height: 400, width: '100%', zIndex: 1 }} attributionControl={false}>
                             <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
                             {/* Beach markers */}
                             {beach_stats.map(b => (

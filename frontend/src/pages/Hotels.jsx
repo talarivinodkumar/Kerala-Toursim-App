@@ -106,7 +106,7 @@ const Hotels = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-center lg:text-left"
                     >
-                        <h1 className="text-6xl lg:text-8xl font-black text-blue-950 mb-6 tracking-tighter">
+                        <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black text-blue-950 mb-6 tracking-tighter">
                             Luxury Stays <br /> <span className="text-blue-600">& Coastal Villas</span>
                         </h1>
                         <p className="text-xl text-gray-500 font-medium max-w-2xl leading-relaxed">
@@ -123,7 +123,7 @@ const Hotels = () => {
                             {/* Hotel Image & Rooms Layout */}
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-6">
                                 {/* Large Featured Image */}
-                                <div className="lg:col-span-12 h-[450px] rounded-[3rem] overflow-hidden shadow-2xl relative">
+                                <div className="lg:col-span-12 h-[250px] sm:h-[350px] lg:h-[450px] rounded-2xl sm:rounded-[3rem] overflow-hidden shadow-2xl relative">
                                     <img
                                         src={Array.isArray(hotel.images) ? hotel.images[0] : (typeof hotel.images === 'string' && hotel.images.startsWith('[') ? JSON.parse(hotel.images)[0] : hotel.images) || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200'}
                                         className="w-full h-full object-cover"
@@ -139,7 +139,7 @@ const Hotels = () => {
                                             <motion.div
                                                 key={room.id}
                                                 whileHover={{ y: -10 }}
-                                                className="bg-white rounded-[3.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-50 flex flex-col xl:flex-row overflow-hidden group/room"
+                                                className="bg-white rounded-2xl sm:rounded-[3.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-50 flex flex-col xl:flex-row overflow-hidden group/room"
                                             >
                                                 {/* Room Image Section */}
                                                 <div className="xl:w-[400px] h-[300px] xl:h-auto overflow-hidden relative">
@@ -150,35 +150,35 @@ const Hotels = () => {
                                                     />
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                                                 </div>
-                                                <div className="p-12 xl:p-16 flex-1 text-left">
-                                                    <div className="flex items-center gap-4 mb-6">
-                                                        <h4 className="text-4xl font-black text-blue-950 tracking-tighter uppercase">{room.room_type}</h4>
+                                                <div className="p-6 sm:p-10 xl:p-16 flex-1 text-left">
+                                                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-6">
+                                                        <h4 className="text-2xl sm:text-3xl xl:text-4xl font-black text-blue-950 tracking-tighter uppercase">{room.room_type}</h4>
                                                         <div className="bg-green-100 text-green-700 px-4 py-1 rounded-full text-[10px] font-black tracking-widest uppercase">Best Seller</div>
                                                     </div>
-                                                    <p className="text-lg text-gray-500 font-medium mb-10 leading-relaxed max-w-2xl">{room.description}</p>
+                                                    <p className="text-base sm:text-lg text-gray-500 font-medium mb-6 sm:mb-10 leading-relaxed max-w-2xl">{room.description}</p>
 
-                                                    <div className="flex flex-wrap gap-6 mb-8">
-                                                        <div className="flex items-center gap-2 bg-gray-50 px-6 py-3 rounded-2xl border border-gray-100 text-sm font-black text-blue-900">
-                                                            <Users className="w-5 h-5 text-blue-400" /> Max {room.capacity}
+                                                    <div className="flex flex-wrap gap-3 sm:gap-6 mb-8">
+                                                        <div className="flex items-center gap-2 bg-gray-50 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl border border-gray-100 text-xs sm:text-sm font-black text-blue-900">
+                                                            <Users className="w-4 sm:w-5 h-4 sm:h-5 text-blue-400" /> Max {room.capacity}
                                                         </div>
-                                                        <div className="flex items-center gap-2 bg-gray-50 px-6 py-3 rounded-2xl border border-gray-100 text-sm font-black text-green-600">
-                                                            <CheckCircle className="w-5 h-5" /> Free High-Speed WiFi
+                                                        <div className="flex items-center gap-2 bg-gray-50 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl border border-gray-100 text-xs sm:text-sm font-black text-green-600">
+                                                            <CheckCircle className="w-4 sm:w-5 h-4 sm:h-5" /> Free WiFi
                                                         </div>
-                                                        <div className="flex items-center gap-2 bg-gray-50 px-6 py-3 rounded-2xl border border-gray-100 text-sm font-black text-orange-500">
-                                                            <Info className="w-5 h-5" /> All-Inclusive Meals
+                                                        <div className="flex items-center gap-2 bg-gray-50 px-4 sm:px-6 py-2 sm:py-3 rounded-2xl border border-gray-100 text-xs sm:text-sm font-black text-orange-500">
+                                                            <Info className="w-4 sm:w-5 h-4 sm:h-5" /> All-Inclusive
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 {/* Professional Booking Panel */}
-                                                <div className="bg-blue-50/50 p-12 xl:p-16 xl:w-[450px] border-l border-gray-50">
-                                                    <div className="mb-10 text-center xl:text-right">
+                                                <div className="bg-blue-50/50 p-6 sm:p-10 xl:p-16 xl:w-[450px] border-t xl:border-t-0 xl:border-l border-gray-50">
+                                                    <div className="mb-6 sm:mb-10 text-center xl:text-right">
                                                         <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2">Price Per Night</p>
-                                                        <div className="text-5xl font-black text-blue-600 tracking-tighter">₹{room.price_per_night}</div>
+                                                        <div className="text-4xl sm:text-5xl font-black text-blue-600 tracking-tighter">₹{room.price_per_night}</div>
                                                         <p className="text-xs text-blue-300 font-bold uppercase mt-1">Special Deal</p>
                                                     </div>
 
-                                                    <div className="space-y-6 bg-white p-8 rounded-[3rem] shadow-xl border border-blue-50">
+                                                    <div className="space-y-4 sm:space-y-6 bg-white p-5 sm:p-8 rounded-2xl sm:rounded-[3rem] shadow-xl border border-blue-50">
                                                         <div className="grid grid-cols-2 gap-4">
                                                             <div className="text-left">
                                                                 <label className="text-[10px] font-black text-blue-900 uppercase block mb-3 pl-2">Check-in</label>
@@ -220,7 +220,7 @@ const Hotels = () => {
 
                                                         <button
                                                             onClick={() => handleBooking(hotel, room)}
-                                                            className="w-full bg-blue-950 hover:bg-blue-600 text-white py-8 rounded-[2rem] font-black text-xl flex items-center justify-center gap-4 transition-all duration-500 active:scale-95 shadow-3xl shadow-blue-950/20 group/btn"
+                                                            className="w-full bg-blue-950 hover:bg-blue-600 text-white py-5 sm:py-8 rounded-2xl sm:rounded-[2rem] font-black text-base sm:text-xl flex items-center justify-center gap-3 sm:gap-4 transition-all duration-500 active:scale-95 shadow-3xl shadow-blue-950/20 group/btn"
                                                         >
                                                             BOOK YOUR STAY <ArrowRight className="w-7 h-7 group-hover:translate-x-3 transition-transform duration-500" />
                                                         </button>
@@ -248,7 +248,7 @@ const Hotels = () => {
                     <div className="bg-blue-600 w-20 h-20 rounded-[2rem] flex items-center justify-center text-white mx-auto mb-10 shadow-2xl">
                         <CreditCard className="w-10 h-10" />
                     </div>
-                    <h2 className="text-5xl font-black text-white mb-8 tracking-tighter italic">Secure Booking Guarantee</h2>
+                    <h2 className="text-3xl sm:text-5xl font-black text-white mb-8 tracking-tighter italic">Secure Booking Guarantee</h2>
                     <p className="text-xl text-blue-200/50 font-medium mb-12">
                         Your bookings are 100% secure. You'll receive an instant digital voucher for a smooth check-in at the resort.
                     </p>

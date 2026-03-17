@@ -69,7 +69,7 @@ const Packages = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 py-24 px-6 sm:px-12">
+        <div className="min-h-screen bg-gray-50 py-16 sm:py-24 px-4 sm:px-6 lg:px-12">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-24">
                     <motion.div
@@ -82,7 +82,7 @@ const Packages = () => {
                     <motion.h1
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-6xl lg:text-8xl font-black text-blue-950 mb-8 tracking-tighter"
+                        className="text-4xl sm:text-6xl lg:text-8xl font-black text-blue-950 mb-8 tracking-tighter"
                     >
                         Exclusive Packages
                     </motion.h1>
@@ -103,10 +103,10 @@ const Packages = () => {
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-white rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.06)] overflow-hidden border border-gray-100 group"
+                            className="bg-white rounded-2xl sm:rounded-[4rem] shadow-[0_40px_100px_rgba(0,0,0,0.06)] overflow-hidden border border-gray-100 group"
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-5 h-full">
-                                <div className="lg:col-span-2 h-[400px] lg:h-auto overflow-hidden relative">
+                                <div className="lg:col-span-2 h-[250px] sm:h-[350px] lg:h-auto overflow-hidden relative">
                                     <img
                                         src={pkg.image || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200' + pkg.id}
                                         alt={pkg.name}
@@ -122,10 +122,10 @@ const Packages = () => {
                                     </div>
                                 </div>
 
-                                <div className="lg:col-span-3 p-12 lg:p-20 flex flex-col justify-between">
+                                <div className="lg:col-span-3 p-6 sm:p-10 lg:p-20 flex flex-col justify-between">
                                     <div>
-                                        <div className="flex justify-between items-start mb-10">
-                                            <h2 className="text-4xl lg:text-5xl font-black text-blue-950 leading-tight tracking-tighter">{pkg.name}</h2>
+                                        <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6 sm:mb-10">
+                                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-blue-950 leading-tight tracking-tighter">{pkg.name}</h2>
                                             <div className="flex items-center gap-2 text-yellow-500 bg-yellow-50 px-4 py-2 rounded-full">
                                                 <Star className="w-4 h-4 fill-current" />
                                                 <span className="font-black text-blue-950 text-sm">4.9</span>
@@ -134,7 +134,7 @@ const Packages = () => {
 
                                         <p className="text-gray-500 text-lg font-medium mb-12 leading-relaxed italic border-l-4 border-blue-50 pl-8">{pkg.description}</p>
 
-                                        <div className="mb-16">
+                                        <div className="mb-10 sm:mb-16">
                                             <p className="text-[10px] font-black text-gray-400 gap-2 flex items-center uppercase tracking-[0.2em] mb-8">
                                                 <Bookmark className="w-4 h-4 text-blue-400" /> Premium Inclusions
                                             </p>
@@ -149,17 +149,17 @@ const Packages = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center justify-between mt-12 pt-12 border-t border-gray-50">
+                                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mt-8 sm:mt-12 pt-8 sm:pt-12 border-t border-gray-50">
                                         <div>
                                             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Total Package Price</p>
                                             <div className="flex items-baseline gap-2">
-                                                <span className="text-5xl font-black text-blue-950 tracking-tighter">₹{pkg.price}</span>
+                                                <span className="text-4xl sm:text-5xl font-black text-blue-950 tracking-tighter">₹{pkg.price}</span>
                                                 <span className="text-gray-400 font-bold text-sm">/ all-incl.</span>
                                             </div>
                                         </div>
                                         <button
                                             onClick={() => handleBooking(pkg)}
-                                            className="px-12 py-6 rounded-[2.5rem] font-black text-2xl transition-all transform active:scale-95 shadow-[0_20px_50px_rgba(37,99,235,0.3)] flex items-center gap-4 group/btn bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white border-2 border-white/20"
+                                            className="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-6 rounded-2xl sm:rounded-[2.5rem] font-black text-lg sm:text-2xl transition-all transform active:scale-95 shadow-[0_20px_50px_rgba(37,99,235,0.3)] flex items-center justify-center gap-4 group/btn bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white border-2 border-white/20"
                                         >
                                             Secure Trip <ChevronRight className="w-7 h-7 transition-transform group-hover/btn:translate-x-2" />
                                         </button>

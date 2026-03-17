@@ -246,7 +246,7 @@ const AdminDashboard = () => {
                     {/* Safety Dashboard */}
                     {activeTab === 'safety' && (
                         <motion.div key="safety" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}>
-                            <div className="flex justify-between items-end mb-12">
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-12">
                                 <div>
                                     <h2 className="text-4xl font-black text-blue-950 mb-2">Tourist Safety Monitor</h2>
                                     <p className="text-gray-500 font-medium">Real-time status of marked tourists and live alerts.</p>
@@ -444,7 +444,7 @@ const AdminDashboard = () => {
 
                             <div className="bg-white p-12 rounded-[3.5rem] shadow-xl border border-gray-50 max-w-4xl">
                                 <div className="space-y-12">
-                                    <div className="grid grid-cols-2 gap-10">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
                                         <div>
                                             <div className="flex justify-between items-end mb-6">
                                                 <h3 className="text-lg font-black text-blue-950 uppercase tracking-widest">Crowd Density</h3>
@@ -468,7 +468,7 @@ const AdminDashboard = () => {
                                         </div>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-10">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10">
                                         <div>
                                             <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-4">Best Visit Time</label>
                                             <div className="flex items-center gap-4 bg-gray-50 p-6 rounded-3xl">
