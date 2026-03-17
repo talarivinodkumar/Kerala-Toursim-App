@@ -53,7 +53,7 @@ npm start
 ```
 
 ## Accessing the App
-- **Frontend URL:** [http://localhost:5173](http://localhost:5173)
+- **Frontend URL:** [https://serene-biscochitos-136c3f.netlify.app](https://serene-biscochitos-136c3f.netlify.app)
 - **Backend API:** [http://localhost:5000](http://localhost:5000)
 
 ## Project Structure

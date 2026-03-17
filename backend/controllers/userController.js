@@ -103,7 +103,7 @@ const forgotPassword = async (req, res) => {
         );
 
         // Construct reset URL for frontend
-        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+        const frontendUrl = process.env.FRONTEND_URL || 'https://serene-biscochitos-136c3f.netlify.app';
         const resetUrl = `${frontendUrl}/reset-password/${resetToken}`;
 
         // Always log to console so it works even without email config
