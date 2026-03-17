@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser, forgotPassword, resetPassword } = require('../controllers/userController');
+const { registerUser, loginUser, forgotPassword, resetPassword, getUserById, getAllUsers, getCurrentUser } = require('../controllers/userController');
 
+router.get('/', getAllUsers);
+router.get('/me', getCurrentUser);
+router.get('/:id', getUserById);
 router.post('/', registerUser);
 router.post('/login', loginUser);
 router.post('/forgot-password', forgotPassword);

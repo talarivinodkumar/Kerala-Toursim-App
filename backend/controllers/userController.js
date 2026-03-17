@@ -183,4 +183,63 @@ const resetPassword = async (req, res) => {
 };
 
 
-module.exports = { registerUser, loginUser, forgotPassword, resetPassword };
+// @desc    Get user by ID
+// @route   GET /api/users/:id
+// @access  Public
+const getUserById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const [users] = await db.query('SELECT id, name, email FROM users WHERE id = ?', [id]);
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json(users[0]);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Public
+const getAllUsers = async (req, res) => {
+    try {
+        const [users] = await db.query('SELECT id, name, email FROM users');
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Get current logged in user
+// @route   GET /api/users/me
+// @access  Private
+const getCurrentUser = async (req, res) => {
+    try {
+        // Extract token from header
+        const token = req.headers.authorization?.split(' ')[1];
+        
+        if (!token) {
+            return res.status(401).json({ message: 'No token provided' });
+        }
+
+        // Verify token
+        const jwt = require('jsonwebtoken');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+        
+        const [users] = await db.query('SELECT id, name, email FROM users WHERE id = ?', [decoded.id]);
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json(users[0]);
+    } catch (error) {
+        res.status(401).json({ message: 'Invalid or expired token' });
+    }
+};
+
+module.exports = { registerUser, loginUser, forgotPassword, resetPassword, getUserById, getAllUsers, getCurrentUser };
