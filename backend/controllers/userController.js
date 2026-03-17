@@ -26,16 +26,16 @@ const registerUser = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Uses password column as per schema
         const [result] = await db.query(
-            'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-            [name, email, hashedPassword]
+            'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
+            [name, email, hashedPassword, 'user']
         );
 
         res.status(201).json({
             id: result.insertId,
             name,
             email,
+            role: 'user',
             token: generateToken(result.insertId)
         });
     } catch (error) {
@@ -59,6 +59,7 @@ const loginUser = async (req, res) => {
                 id: user.id,
                 name: user.name,
                 email: user.email,
+                role: user.role,
                 token: generateToken(user.id)
             });
         } else {
@@ -190,7 +191,7 @@ const getUserById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const [users] = await db.query('SELECT id, name, email FROM users WHERE id = ?', [id]);
+        const [users] = await db.query('SELECT id, name, email, role FROM users WHERE id = ?', [id]);
 
         if (users.length === 0) {
             return res.status(404).json({ message: 'User not found' });
@@ -207,7 +208,7 @@ const getUserById = async (req, res) => {
 // @access  Public
 const getAllUsers = async (req, res) => {
     try {
-        const [users] = await db.query('SELECT id, name, email FROM users');
+        const [users] = await db.query('SELECT id, name, email, role FROM users');
         res.json(users);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -230,7 +231,7 @@ const getCurrentUser = async (req, res) => {
         const jwt = require('jsonwebtoken');
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
         
-        const [users] = await db.query('SELECT id, name, email FROM users WHERE id = ?', [decoded.id]);
+        const [users] = await db.query('SELECT id, name, email, role FROM users WHERE id = ?', [decoded.id]);
 
         if (users.length === 0) {
             return res.status(404).json({ message: 'User not found' });

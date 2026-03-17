@@ -17,6 +17,7 @@ import KeralaStateDashboard from '../pages/KeralaStateDashboard';
 import DigitalIDLogin from '../pages/DigitalIDLogin';
 import DigitalIDDashboard from '../pages/DigitalIDDashboard';
 import ProtectedRoute from '../components/ProtectedRoute';
+import AdminRoute from '../components/AdminRoute';
 import MainLayout from '../components/MainLayout';
 const AppRoutes = () => {
     return (
@@ -31,8 +32,10 @@ const AppRoutes = () => {
             <Route path="/digital-id-login" element={<DigitalIDLogin />} />
             <Route path="/digital-id-dashboard" element={<DigitalIDDashboard />} />
 
-            {/* Kerala State Monitoring Dashboard */}
-            <Route path="/kerala-dashboard" element={<KeralaStateDashboard />} />
+            {/* Admin Routes - Requires Admin Role */}
+            <Route element={<AdminRoute />}>
+                <Route path="/kerala-dashboard" element={<KeralaStateDashboard />} />
+            </Route>
 
             {/* Application Routes with Navbar/Footer */}
             <Route element={<MainLayout />}>
@@ -44,10 +47,14 @@ const AppRoutes = () => {
                 <Route path="/beaches" element={<Beaches />} />
                 <Route path="/safety-tips" element={<SafetyTips />} />
 
-                {/* Protected Routes */}
+                {/* Protected Routes (Any logged-in user) */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/my-bookings" element={<MyBookings />} />
                     <Route path="/payment" element={<Payment />} />
+                </Route>
+
+                {/* Admin Routes (Header present) */}
+                <Route element={<AdminRoute />}>
                     <Route path="/admin/crowd" element={<AdminDashboard />} />
                 </Route>
             </Route>

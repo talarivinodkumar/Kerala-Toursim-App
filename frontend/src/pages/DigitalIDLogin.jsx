@@ -5,9 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const DigitalIDLogin = () => {
-    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
-    const [step, setStep] = useState(1); // 1 = enter phone, 2 = enter otp
+    const [step, setStep] = useState(1); // 1 = enter email, 2 = enter otp
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
@@ -15,7 +15,7 @@ const DigitalIDLogin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await api.post('/safety/send-otp', { phone });
+            const res = await api.post('/safety/send-otp', { email });
 
             if (res.data.mockOtp) {
                 toast.success('📱 Dev Mode: OTP is ' + res.data.mockOtp, {
@@ -39,7 +39,7 @@ const DigitalIDLogin = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await api.post('/safety/verify-otp', { phone, otp });
+            const res = await api.post('/safety/verify-otp', { email, otp });
             toast.success('Login Successful!');
             localStorage.setItem('digital_id_user', JSON.stringify(res.data.tourist));
             navigate('/digital-id-dashboard');
@@ -64,12 +64,12 @@ const DigitalIDLogin = () => {
                 {step === 1 ? (
                     <form onSubmit={handleSendOTP} className="space-y-6">
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-indigo-100">Mobile Number</label>
+                            <label className="block text-sm font-medium mb-2 text-indigo-100">Email Address</label>
                             <input
-                                type="text"
-                                placeholder="+91 9876543210"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
+                                type="email"
+                                placeholder="tourist@example.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-all font-mono"
                                 required
                             />
@@ -107,7 +107,7 @@ const DigitalIDLogin = () => {
                             onClick={() => setStep(1)}
                             className="w-full text-indigo-300 hover:text-white text-sm transition-colors"
                         >
-                            Change phone number
+                            Change Email Address
                         </button>
                     </form>
                 )}

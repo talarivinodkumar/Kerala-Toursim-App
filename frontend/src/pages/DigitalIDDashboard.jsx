@@ -89,8 +89,8 @@ const DigitalIDDashboard = () => {
                         <h1 className="text-4xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-white pb-2">
                             Welcome, {tourist.name}
                         </h1>
-                        <p className="text-indigo-200">Phone: {tourist.phone}</p>
-                        <p className="text-indigo-200">Emergency Contact: {tourist.emergency_contact}</p>
+                        <p className="text-indigo-200">Email: {tourist.email || 'Not provided'}</p>
+                        <p className="text-indigo-200">Emergency Contact: {tourist.emergency_contact || 'None'}</p>
                     </div>
                     <div className="bg-white/5 border border-white/10 p-4 rounded-2xl flex items-center shadow-inner backdrop-blur-lg min-w-[300px]">
                         <div className="flex-1">

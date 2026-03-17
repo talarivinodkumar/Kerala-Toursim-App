@@ -677,24 +677,27 @@ exports.getAdminDashboard = async (req, res) => {
 };
 
 // ==========================================
-// 11. OTP Login System
+// 11. OTP Login System (Email-based)
 // ==========================================
 exports.sendOTP = async (req, res) => {
     try {
-        let { phone } = req.body;
-        if (!phone) return res.status(400).json({ message: 'Phone number is required' });
-        phone = phone.replace(/[^0-9+]/g, '');
+        let { email } = req.body;
+        if (!email) return res.status(400).json({ message: 'Email address is required' });
+        email = email.toLowerCase().trim();
 
-        const [tourists] = await db.query('SELECT * FROM tourists WHERE phone = ?', [phone]);
+        const [tourists] = await db.query('SELECT * FROM tourists WHERE email = ?', [email]);
         let touristId = null;
 
         if (tourists.length === 0) {
-            const name = `Tourist_${phone.slice(-4)}`;
-            const uniqueString = `${Date.now()}-${name}-${phone}`;
+            const name = `Tourist_${email.split('@')[0]}`;
+            const uniqueString = `${Date.now()}-${name}-${email}`;
             const digital_id = crypto.createHash('sha256').update(uniqueString).digest('hex');
+            
+            // Insert phone as empty string since DB doesn't allow NULL on phone previously (or we just omit it)
+            // But we do need to save email in the new column
             await db.query(
-                'INSERT INTO tourists (digital_id, name, phone, emergency_contact) VALUES (?, ?, ?, ?)',
-                [digital_id, name, phone, '']
+                'INSERT INTO tourists (digital_id, name, email, phone, emergency_contact) VALUES (?, ?, ?, ?, ?)',
+                [digital_id, name, email, '', '']
             );
             const [newTourist] = await db.query('SELECT id FROM tourists WHERE digital_id = ?', [digital_id]);
             touristId = newTourist[0].id;
@@ -707,14 +710,11 @@ exports.sendOTP = async (req, res) => {
 
         await db.query('UPDATE tourists SET otp = ?, otp_expiry = ? WHERE id = ?', [otp, otpExpiry, touristId]);
 
-        const message = `Your Tourist Digital ID OTP is ${otp}. Valid for 10 minutes.`;
-        const smsResult = await sendSMS(phone, message);
+        // Simulating Email Send (We return the mock OTP in DEV mode automatically)
+        console.log(`\n📧 EMAIL MOCK: OTP for ${email} is ${otp}\n`);
+        
+        res.json({ message: 'OTP sent via Email!', mockOtp: otp });
 
-        if (smsResult && smsResult.isMock) {
-            res.json({ message: 'OTP bypassed SMS!', mockOtp: otp });
-        } else {
-            res.json({ message: 'OTP sent via Fast2SMS!' });
-        }
     } catch (error) {
         console.error('Send OTP error:', error);
         res.status(500).json({ message: 'Server error' });
@@ -723,11 +723,11 @@ exports.sendOTP = async (req, res) => {
 
 exports.verifyOTP = async (req, res) => {
     try {
-        let { phone, otp } = req.body;
-        if (!phone || !otp) return res.status(400).json({ message: 'Phone and OTP required' });
-        phone = phone.replace(/[^0-9+]/g, '');
+        let { email, otp } = req.body;
+        if (!email || !otp) return res.status(400).json({ message: 'Email and OTP required' });
+        email = email.toLowerCase().trim();
 
-        const [tourists] = await db.query('SELECT * FROM tourists WHERE phone = ?', [phone]);
+        const [tourists] = await db.query('SELECT * FROM tourists WHERE email = ?', [email]);
         if (tourists.length === 0) return res.status(404).json({ message: 'Tourist not found' });
 
         const tourist = tourists[0];

@@ -56,8 +56,12 @@ const Navbar = () => {
                         {/* Admin Dropdown / Links */}
                         <div className="flex items-center bg-gray-50 border border-gray-100 p-1 rounded-xl">
                             <Link to="/safety-tips" className="text-rose-700 hover:bg-rose-100 px-3 py-1.5 rounded-lg text-xs font-black transition-all">Safety Tips</Link>
-                            <Link to="/admin/crowd" className="text-blue-700 hover:bg-blue-100 px-3 py-1.5 rounded-lg text-xs font-black transition-all">Admin Panel</Link>
-                            <Link to="/kerala-dashboard" className="text-emerald-700 hover:bg-emerald-100 px-3 py-1.5 rounded-lg text-xs font-black transition-all">State Command</Link>
+                            {user && user.role === 'admin' && (
+                                <>
+                                    <Link to="/admin/crowd" className="text-blue-700 hover:bg-blue-100 px-3 py-1.5 rounded-lg text-xs font-black transition-all">Admin Panel</Link>
+                                    <Link to="/kerala-dashboard" className="text-emerald-700 hover:bg-emerald-100 px-3 py-1.5 rounded-lg text-xs font-black transition-all">State Command</Link>
+                                </>
+                            )}
                         </div>
 
                         {/* Safety Action Links */}
@@ -141,10 +145,12 @@ const Navbar = () => {
                                 <span className="font-bold text-sm whitespace-nowrap">Tourist ID</span>
                             </Link>
 
-                            <Link to="/kerala-dashboard" onClick={() => setIsOpen(false)} className="bg-emerald-500 text-white p-4 rounded-2xl flex flex-col items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
-                                <Map size={24} opacity={0.8} />
-                                <span className="font-bold text-sm whitespace-nowrap">Live Safety Map</span>
-                            </Link>
+                            {user && user.role === 'admin' && (
+                                <Link to="/kerala-dashboard" onClick={() => setIsOpen(false)} className="bg-emerald-500 text-white p-4 rounded-2xl flex flex-col items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
+                                    <Map size={24} opacity={0.8} />
+                                    <span className="font-bold text-sm whitespace-nowrap">Live Safety Map</span>
+                                </Link>
+                            )}
                         </div>
 
                         <hr className="border-gray-100" />
@@ -169,12 +175,16 @@ const Navbar = () => {
                                 <Link to="/safety-tips" onClick={() => setIsOpen(false)} className="bg-rose-900/50 text-rose-200 px-4 py-3 rounded-xl text-sm font-bold flex justify-between items-center border border-rose-800/50 mb-2">
                                     Safety Tips <ArrowLeft size={16} className="rotate-180 opacity-50" />
                                 </Link>
-                                <Link to="/admin/crowd" onClick={() => setIsOpen(false)} className="bg-gray-800 text-gray-200 px-4 py-3 rounded-xl text-sm font-bold flex justify-between items-center border border-gray-700">
-                                    Admin Panel <ArrowLeft size={16} className="rotate-180 opacity-50" />
-                                </Link>
-                                <Link to="/kerala-dashboard" onClick={() => setIsOpen(false)} className="bg-gradient-to-r from-gray-800 to-gray-700 text-white px-4 py-3 rounded-xl text-sm font-bold flex justify-between items-center border border-gray-600">
-                                    State Command Dashboard <ArrowLeft size={16} className="rotate-180 opacity-50" />
-                                </Link>
+                                {user && user.role === 'admin' && (
+                                    <>
+                                        <Link to="/admin/crowd" onClick={() => setIsOpen(false)} className="bg-gray-800 text-gray-200 px-4 py-3 rounded-xl text-sm font-bold flex justify-between items-center border border-gray-700 mb-2">
+                                            Admin Panel <ArrowLeft size={16} className="rotate-180 opacity-50" />
+                                        </Link>
+                                        <Link to="/kerala-dashboard" onClick={() => setIsOpen(false)} className="bg-gradient-to-r from-gray-800 to-gray-700 text-white px-4 py-3 rounded-xl text-sm font-bold flex justify-between items-center border border-gray-600">
+                                            State Command Dashboard <ArrowLeft size={16} className="rotate-180 opacity-50" />
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         </div>
 
